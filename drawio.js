@@ -1,10 +1,12 @@
 window.drawio = {
     shapes: [],
     selectedShape: 'rectangle', // by default
+    canvas: document.getElementById('my-canvas'),
     ctx: document.getElementById('my-canvas').getContext('2d'),//halda utan um canvas contexid
     selectedElement: null,
     availableShapes: {
-        RECTANGLE: 'rectangle'
+        RECTANGLE: 'rectangle',
+        CIRCLE: 'circle',
     }
 };
 
@@ -29,14 +31,23 @@ $(function () {
             case drawio.availableShapes.RECTANGLE:
                 drawio.selectedElement = new Rectangle({x: mouseEvent.offsetX, y: mouseEvent.offsetY} , 0, 0);
                 break;
+            // Hérna bæti ég circle inn
+            case drawio.availableShapes.CIRCLE:
+                drawio.selectedElement = new Circle({x: mouseEvent.offsetX, y: mouseEvent.offsetY}, 0, 0);
+                break;
         }
     });
     //mousemove
     $('#my-canvas').on('mousemove', function (mouseEvent) {
         if(drawio.selectedElement) {
+            drawio.ctx.clearRect(0,0, drawio.canvas.width, drawio.canvas.height);
             drawio.selectedElement.resize(mouseEvent.offsetX, mouseEvent.offsetY);
             drawCanvas();
         }
     });
     //mouseup
+    $('#my-canvas').on('mouseup', function () {
+        drawio.shapes.push(drawio.selectedElement);
+        drawio.selectedElement = null;
+    });
 });
