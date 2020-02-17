@@ -47,7 +47,15 @@ Circle.prototype.constructor = Circle;
 
 Circle.prototype.render = function () {
     //render a circle
-    drawio.ctx.arc(this.position.x, this.position.y, this.width, this.height);
+    console.log("hello");
+    drawio.ctx.beginPath();
+    drawio.ctx.arc(this.position.x, this.position.y, 0,  Math.PI * 2, false);// var kominn hingad..
+};
+Circle.prototype.resize = function (x, y) {
+    //this.width = x - this.position.x;
+    //this.height = y - this.position.y;
+    drawio.ctx.moveTo(x, y);
+    drawio.ctx.stroke();
 };
 
 /////////////Circle END///////////////////////
