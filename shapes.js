@@ -38,6 +38,7 @@ function Pencil(postion, strokeSize, color) {
 
 function Text(position, width, height){
     Shape.call(this, position);
+    this.words = [];
     this.width = width;
     this.height = height;
 }
@@ -52,9 +53,9 @@ function Line(position, width, height, strokeSize, color){
 };
 function myInputFunction() {
     //var person = prompt("Please enter your name", "");
+    //var person = $("#textUser").val();
+    //console.log($("#textUser"));
     var person = $("#textUser").val();
-
-    
 
     return (person);
 }
@@ -138,8 +139,11 @@ Text.prototype.render = function () {
     //drawio.ctx.stroke();
     //drawio.ctx.closePath();
     drawio.ctx.font = '50px serif';
-    drawio.ctx.fillText(myInputFunction(), this.position.x, this.position.y, 140);
-    //drawio.selectedElement = false; //slekkur a loopunni
+    var newstuff = myInputFunction();
+    drawio.ctx.fillText(newstuff, this.position.x, this.position.y, 140);
+    drawio.selectedElement = false; //slekkur a loopunni
+    this.words.push(newstuff);
+    //console.log($("#textUser"))
     
 };
 Text.prototype.resize = function (x, y) {
