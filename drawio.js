@@ -47,7 +47,7 @@ $(function () {
     })
 
     $('#brushSize').on('input', function (inputEvent) {
-        console.log("this is input: ", inputEvent.target.value);
+        //console.log("this is input: ", inputEvent.target.value);
         drawio.strokeSize = inputEvent.target.value;
         $('#brushSize2').val(inputEvent.target.value);
     });
@@ -55,6 +55,11 @@ $(function () {
         console.log("this is input: ", inputEvent.target.value);
         drawio.strokeSize = inputEvent.target.value;
         $('#brushSize').val(inputEvent.target.value);
+    });
+    $('#textUser').on('input', function (inputEvent) {
+        console.log("this is input: ", inputEvent.target.value);
+        drawio.strokeSize = inputEvent.target.value;
+        $('#textUser').val(inputEvent.target.value);
     });
 
     $('#color').on('input', function (inputEvent) {

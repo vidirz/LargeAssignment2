@@ -50,6 +50,14 @@ function Line(position, width, height, strokeSize, color){
     this.strokeSize = strokeSize;
     this.color = color;
 };
+function myInputFunction() {
+    //var person = prompt("Please enter your name", "");
+    var person = $("#textUser").val();
+
+    
+
+    return (person);
+}
 
 ////////////////Rectangle/////////////////////
 //Assign the prototype
@@ -130,8 +138,8 @@ Text.prototype.render = function () {
     //drawio.ctx.stroke();
     //drawio.ctx.closePath();
     drawio.ctx.font = '50px serif';
-    drawio.ctx.strokeText('Hello world', this.position.x, this.position.y, 140);
-
+    drawio.ctx.fillText(myInputFunction(), this.position.x, this.position.y, 140);
+    //drawio.selectedElement = false; //slekkur a loopunni
     
 };
 Text.prototype.resize = function (x, y) {
