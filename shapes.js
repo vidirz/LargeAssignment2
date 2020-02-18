@@ -129,14 +129,14 @@ Line.prototype.render = function () {
     //render a line
     console.log("Line");
     drawio.ctx.beginPath();
-    drawio.ctx.moveTo(this.width, this.height);
-    drawio.ctx.lineTo(this.position.x, this.position.y);
+    drawio.ctx.moveTo(this.position.x, this.position.y);
+    drawio.ctx.lineTo(this.width, this.height);
     drawio.ctx.stroke();
 };
 
 Line.prototype.resize = function (x, y) {
-    this.width = Math.abs(this.position.x + x);
-    this.height = Math.abs(this.position.y + y);
+    this.width = x;
+    this.height = y;
 };
 
 ////////////////Line END/////////////////////
