@@ -7,12 +7,14 @@ window.drawio = {
     availableShapes: {
         RECTANGLE: 'rectangle',
         CIRCLE: 'circle',
+        PENCIL: 'pencil',
         TEXT: 'text',
     }
 };
 
 $(function () {
     // Document is loaded and parsed
+
     function drawCanvas() {
         if(drawio.selectedElement) {
             drawio.selectedElement.render();
@@ -26,6 +28,7 @@ $(function () {
         $(this).addClass('selected');
         drawio.selectedShape = $(this).data('shape');
     });
+
     //mousedown
     $('#my-canvas').on('mousedown', function (mouseEvent){
         switch (drawio.selectedShape) {
@@ -36,6 +39,9 @@ $(function () {
             case drawio.availableShapes.CIRCLE:
                 drawio.selectedElement = new Circle({x: mouseEvent.offsetX, y: mouseEvent.offsetY}, 0, 0);
                 break;
+            case drawio.availableShapes.PENCIL:
+                drawio.selectedElement = new Pencil({x: mouseEvent.offsetX, y: mouseEvent.offsetY});
+                break;
             case drawio.availableShapes.TEXT:
                 drawio.selectedElement = new Text({x: mouseEvent.offsetX, y: mouseEvent.offsetY}, 0, 0);
                 break;
@@ -45,10 +51,18 @@ $(function () {
     $('#my-canvas').on('mousemove', function (mouseEvent) {
         if(drawio.selectedElement) {
             drawio.ctx.clearRect(0,0, drawio.canvas.width, drawio.canvas.height);
-            drawio.selectedElement.resize(mouseEvent.offsetX, mouseEvent.offsetY);
+            switch (drawio.selectedShape) {
+                case drawio.availableShapes.PENCIL:
+                    drawio.selectedElement.addPoint(mouseEvent.offsetX, mouseEvent.offsetY);
+                    break;
+                default:
+                    drawio.selectedElement.resize(mouseEvent.offsetX, mouseEvent.offsetY);
+                    break;
+            }
             drawCanvas();
         }
     });
+
     //mouseup
     $('#my-canvas').on('mouseup', function () {
         drawio.shapes.push(drawio.selectedElement);
