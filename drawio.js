@@ -1,5 +1,6 @@
 window.drawio = {
     shapes: [],
+    undo: [],
     strokeSize: 2,
     color:"#000000",
     selectedShape: 'pencil', // by default
@@ -32,6 +33,18 @@ $(function () {
         $(this).addClass('selected');
         drawio.selectedShape = $(this).data('shape');
     });
+
+    $('#undo').on('click', function () {
+        drawio.undo.push(drawio.shapes.pop());
+        drawio.ctx.clearRect(0,0, drawio.canvas.width, drawio.canvas.height);
+        drawCanvas();
+    })
+
+    $('#redo').on('click', function () {
+        drawio.shapes.push(drawio.undo.pop());
+        drawio.ctx.clearRect(0,0, drawio.canvas.width, drawio.canvas.height);
+        drawCanvas();
+    })
 
     $('#brushSize').on('input', function (inputEvent) {
         console.log("this is input: ", inputEvent.target.value);
