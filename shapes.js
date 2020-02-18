@@ -139,11 +139,11 @@ Line.prototype.constructor = Line;
 
 Line.prototype.render = function () {
     //render a line
-    console.log("Line");
     drawio.ctx.beginPath();
     drawio.ctx.moveTo(this.position.x, this.position.y);
     drawio.ctx.lineTo(this.width, this.height);
     drawio.ctx.stroke();
+    drawio.ctx.closePath();
 };
 
 Line.prototype.resize = function (x, y) {
