@@ -121,7 +121,7 @@ Text.prototype.render = function () {
     //drawio.ctx.stroke();
     //drawio.ctx.closePath();
     drawio.ctx.font = '50px serif';
-    drawio.ctx.strokeText('Hello world', this.position.x, this.position.y, 140);
+    drawio.ctx.fillText('Hello world', this.position.x, this.position.y, 140);
 
     
 };
