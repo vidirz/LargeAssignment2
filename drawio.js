@@ -10,6 +10,7 @@ window.drawio = {
         CIRCLE: 'circle',
         PENCIL: 'pencil',
         TEXT: 'text',
+        LINE: 'line',
     }
 };
 
@@ -53,6 +54,10 @@ $(function () {
             case drawio.availableShapes.TEXT:
                 drawio.selectedElement = new Text({x: mouseEvent.offsetX, y: mouseEvent.offsetY}, 0, 0);
                 break;
+            // Line
+            case drawio.availableShapes.LINE:
+                drawio.selectedElement = new Line({x: mouseEvent.offsetX, y: mouseEvent.offsetY}, 0, 0);
+                break;
         }
         drawCanvas();
     });
@@ -76,5 +81,8 @@ $(function () {
     $('#my-canvas').on('mouseup', function () {
         drawio.shapes.push(drawio.selectedElement);
         drawio.selectedElement = null;
+    });
+    $('#my-canvas').on('onclick', function () {
+
     });
 });
