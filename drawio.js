@@ -7,6 +7,7 @@ window.drawio = {
     availableShapes: {
         RECTANGLE: 'rectangle',
         CIRCLE: 'circle',
+        TEXT: 'text',
     }
 };
 
@@ -34,6 +35,9 @@ $(function () {
             // Hérna bæti ég circle inn
             case drawio.availableShapes.CIRCLE:
                 drawio.selectedElement = new Circle({x: mouseEvent.offsetX, y: mouseEvent.offsetY}, 0, 0);
+                break;
+            case drawio.availableShapes.TEXT:
+                drawio.selectedElement = new Text({x: mouseEvent.offsetX, y: mouseEvent.offsetY}, 0, 0);
                 break;
         }
     });
