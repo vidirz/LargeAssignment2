@@ -1,5 +1,6 @@
 window.drawio = {
     shapes: [],
+    undo: [],
     strokeSize: 2,
     color:"#000000",
     selectedShape: 'pencil', // by default
@@ -33,8 +34,20 @@ $(function () {
         drawio.selectedShape = $(this).data('shape');
     });
 
+    $('#undo').on('click', function () {
+        drawio.undo.push(drawio.shapes.pop());
+        drawio.ctx.clearRect(0,0, drawio.canvas.width, drawio.canvas.height);
+        drawCanvas();
+    })
+
+    $('#redo').on('click', function () {
+        drawio.shapes.push(drawio.undo.pop());
+        drawio.ctx.clearRect(0,0, drawio.canvas.width, drawio.canvas.height);
+        drawCanvas();
+    })
+
     $('#brushSize').on('input', function (inputEvent) {
-        console.log("this is input: ", inputEvent.target.value);
+        //console.log("this is input: ", inputEvent.target.value);
         drawio.strokeSize = inputEvent.target.value;
         $('#brushSize2').val(inputEvent.target.value);
     });
@@ -42,6 +55,11 @@ $(function () {
         console.log("this is input: ", inputEvent.target.value);
         drawio.strokeSize = inputEvent.target.value;
         $('#brushSize').val(inputEvent.target.value);
+    });
+    $('#textUser').on('input', function (inputEvent) {
+        console.log("this is input: ", inputEvent.target.value);
+        drawio.strokeSize = inputEvent.target.value;
+        $('#textUser').val(inputEvent.target.value);
     });
 
     $('#color').on('input', function (inputEvent) {
