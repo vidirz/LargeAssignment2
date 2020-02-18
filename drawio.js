@@ -9,6 +9,7 @@ window.drawio = {
         RECTANGLE: 'rectangle',
         CIRCLE: 'circle',
         PENCIL: 'pencil',
+        TEXT: 'text',
     }
 };
 
@@ -48,6 +49,9 @@ $(function () {
                 drawio.selectedElement = new Pencil({x: mouseEvent.offsetX, y: mouseEvent.offsetY}, drawio.strokeSize)
                 // add point with offset of 1 to draw a dot if just clicking
                 drawio.selectedElement.addPoint(mouseEvent.offsetX + 1, mouseEvent.offsetY + 1); 
+                break;
+            case drawio.availableShapes.TEXT:
+                drawio.selectedElement = new Text({x: mouseEvent.offsetX, y: mouseEvent.offsetY}, 0, 0);
                 break;
         }
         drawCanvas();

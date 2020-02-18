@@ -23,6 +23,7 @@ function Circle(position, width, height){
     this.width = width;
     this.height = height;
 };
+// Fyrir text:
 
 function Pencil(postion, strokeSize) {
     Shape.call(this, postion);
@@ -30,6 +31,11 @@ function Pencil(postion, strokeSize) {
     this.strokeSize = strokeSize;
 }
 
+function Text(position, width, height){
+    Shape.call(this, position);
+    this.width = width;
+    this.height = height;
+}
 
 ////////////////Rectangle/////////////////////
 //Assign the prototype
@@ -93,3 +99,19 @@ Pencil.prototype.addPoint = function(x, y) {
 
 ///////////////////Pen END////////////////////
 
+//////////////Text//////////////////////////
+Text.prototype = Object.create(Shape.prototype);
+Text.prototype.constructor = Circle;
+
+Text.prototype.render = function () {
+    //render a circle
+    console.log("hello");
+    
+};
+Text.prototype.resize = function (x, y) {
+    this.width = Math.abs(x - this.position.x);
+    this.height = Math.abs(y - this.position.y); 
+    //drawio.ctx.moveTo(x, y);
+};
+
+/////////////Text END///////////////////////
