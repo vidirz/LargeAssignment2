@@ -71,6 +71,11 @@ $(function () {
                 drawio.selectedElement = new Line({x: mouseEvent.offsetX, y: mouseEvent.offsetY}, drawio.strokeSize, drawio.color);
                 break;
         }
+
+        if(ctx.isPointInPath(startX,startY)){
+            var selected = true;
+        };
+
         drawCanvas();
     });
     //mousemove
