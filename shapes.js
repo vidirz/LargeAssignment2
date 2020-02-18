@@ -36,6 +36,13 @@ function Text(position, width, height){
     this.height = height;
 }
 
+// Line
+function Line(position, width, height){
+    Shape.call(this, position);
+    this.width = width;
+    this.height = height;
+};
+
 ////////////////Rectangle/////////////////////
 //Assign the prototype
 Rectangle.prototype = Object.create(Shape.prototype);
@@ -113,3 +120,23 @@ Text.prototype.resize = function (x, y) {
 };
 
 /////////////Text END///////////////////////
+
+////////////////Line/////////////////////
+Line.prototype = Object.create(Shape.prototype);
+Line.prototype.constructor = Line;
+
+Line.prototype.render = function () {
+    //render a line
+    console.log("Line");
+    drawio.ctx.beginPath();
+    drawio.ctx.moveTo(this.width, this.height);
+    drawio.ctx.lineTo(this.position.x, this.position.y);
+    drawio.ctx.stroke();
+};
+
+Line.prototype.resize = function (x, y) {
+    this.width = Math.abs(this.position.x + x);
+    this.height = Math.abs(this.position.y + y);
+};
+
+////////////////Line END/////////////////////

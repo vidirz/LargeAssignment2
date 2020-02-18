@@ -9,6 +9,7 @@ window.drawio = {
         CIRCLE: 'circle',
         PENCIL: 'pencil',
         TEXT: 'text',
+        LINE: 'line',
     }
 };
 
@@ -44,6 +45,10 @@ $(function () {
                 break;
             case drawio.availableShapes.TEXT:
                 drawio.selectedElement = new Text({x: mouseEvent.offsetX, y: mouseEvent.offsetY}, 0, 0);
+                break;
+            // Line
+            case drawio.availableShapes.LINE:
+                drawio.selectedElement = new Line({x: mouseEvent.offsetX, y: mouseEvent.offsetY}, 0, 0);
                 break;
         }
     });
