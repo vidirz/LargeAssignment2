@@ -34,6 +34,47 @@ $(function () {
         drawio.selectedShape = $(this).data('shape');
     });
 
+    $('#save').on('click', function () {
+        var drawingName = prompt("Save as:", "");
+
+        if (drawingName === "") {
+            alert("Name not valid");
+            return;
+          }
+        if (localStorage.getItem(drawingName) === null) {
+            localStorage.setItem(drawingName, drawio.canvas.toDataURL());
+          }
+        else {
+            alert("That name is taken");
+        }
+    })
+
+    $('#load').on('click', function () {
+        var savefiles = [];
+        for (var i = 0; i < localStorage.length; i++){
+            savefiles.push(localStorage.key(i));
+        }
+        var drawingName = prompt("What drawing do you want to load?\n" + savefiles.join("\n"), "");
+        if (drawingName === "") {
+            alert("Name not valid");
+            return;
+          }
+        drawio.ctx.clearRect(0,0, drawio.canvas.width, drawio.canvas.height);
+        var dataURL = localStorage.getItem(drawingName);
+        var img = new Image;
+        img.src = dataURL;
+        img.onload = function () {
+            drawio.ctx.drawImage(img, 0, 0);
+        };
+    })
+
+    $('#clearSave').on('click', function () {
+        var choice = confirm("Do you want to delete all saved drawings?");
+        if (choice == true) {
+            localStorage.clear();
+        } 
+    })
+
     $('#undo').on('click', function () {
         drawio.undo.push(drawio.shapes.pop());
         drawio.ctx.clearRect(0,0, drawio.canvas.width, drawio.canvas.height);
