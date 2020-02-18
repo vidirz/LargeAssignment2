@@ -54,13 +54,14 @@ Circle.prototype.render = function () {
     //render a circle
     console.log("hello");
     drawio.ctx.beginPath();
-    drawio.ctx.arc(this.position.x, this.position.y, 0,  Math.PI * 2, false);// var kominn hingad..
+    drawio.ctx.arc(this.position.x, this.position.y, this.height, 0, Math.PI * 2);// var kominn hingad..
+    drawio.ctx.stroke();
+    drawio.ctx.closePath();
 };
 Circle.prototype.resize = function (x, y) {
-    //this.width = x - this.position.x;
-    //this.height = y - this.position.y;
-    drawio.ctx.moveTo(x, y);
-    drawio.ctx.stroke();
+    this.width = Math.abs(x - this.position.x);
+    this.height = Math.abs(y - this.position.y); 
+    //drawio.ctx.moveTo(x, y);
 };
 
 /////////////Circle END///////////////////////
