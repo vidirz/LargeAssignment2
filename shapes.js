@@ -24,6 +24,11 @@ function Circle(position, width, height){
     this.height = height;
 };
 
+function Pencil(postion) {
+    Shape.call(this, postion);
+    this.points = [];
+}
+
 
 ////////////////Rectangle/////////////////////
 //Assign the prototype
@@ -59,3 +64,29 @@ Circle.prototype.resize = function (x, y) {
 };
 
 /////////////Circle END///////////////////////
+
+///////////////////Pen////////////////////////
+Pencil.prototype = Object.create(Shape.prototype);
+Pencil.prototype.constructor = Pencil;
+
+Pencil.prototype.render = function () {
+    drawio.ctx.beginPath();
+    drawio.ctx.moveTo(this.position.x, this.position.y);
+
+    for(i = 0; i < this.points.length; i++) {
+        drawio.ctx.lineTo(this.points[i][0], this.points[i][1]);
+    }
+
+    drawio.ctx.stroke();
+    drawio.ctx.closePath();
+};
+
+Pencil.prototype.addPoint = function(x, y) {
+    var point = [];
+    point.push(x);
+    point.push(y);
+    this.points.push(point);
+}
+
+///////////////////Pen END////////////////////
+
