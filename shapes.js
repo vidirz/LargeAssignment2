@@ -72,14 +72,14 @@ Circle.prototype.render = function () {
     //render a circle
     drawio.ctx.beginPath();
     drawio.ctx.lineWidth = this.strokeSize;
-    drawio.ctx.arc(this.position.x, this.position.y, this.height, 0, Math.PI * 2);// var kominn hingad..
+    drawio.ctx.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2);// var kominn hingad..
     drawio.ctx.stroke();
     drawio.ctx.closePath();
 };
 Circle.prototype.resize = function (x, y) {
-    this.width = Math.abs(x - this.position.x);
-    this.height = Math.abs(y - this.position.y); 
-    //drawio.ctx.moveTo(x, y);
+    this.width = Math.abs(x-this.position.x);
+    this.height = Math.abs(y-this.position.y);
+    this.radius = Math.sqrt(Math.pow(this.width,2)+Math.pow(this.height,2)); 
 };
 
 /////////////Circle END///////////////////////
