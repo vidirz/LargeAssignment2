@@ -24,9 +24,10 @@ function Circle(position, width, height){
     this.height = height;
 };
 
-function Pencil(postion) {
+function Pencil(postion, strokeSize) {
     Shape.call(this, postion);
     this.points = [];
+    this.strokeSize = strokeSize;
 }
 
 
@@ -72,6 +73,7 @@ Pencil.prototype.constructor = Pencil;
 
 Pencil.prototype.render = function () {
     drawio.ctx.beginPath();
+    drawio.ctx.lineWidth = this.strokeSize;
     drawio.ctx.moveTo(this.position.x, this.position.y);
 
     for(i = 0; i < this.points.length; i++) {
