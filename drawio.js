@@ -68,4 +68,7 @@ $(function () {
         drawio.shapes.push(drawio.selectedElement);
         drawio.selectedElement = null;
     });
+    $('#my-canvas').on('onclick', function () {
+
+    });
 });

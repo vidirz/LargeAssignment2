@@ -58,7 +58,6 @@ Circle.prototype.constructor = Circle;
 
 Circle.prototype.render = function () {
     //render a circle
-    console.log("hello");
     drawio.ctx.beginPath();
     drawio.ctx.arc(this.position.x, this.position.y, this.height, 0, Math.PI * 2);// var kominn hingad..
     drawio.ctx.stroke();
@@ -102,13 +101,19 @@ Text.prototype = Object.create(Shape.prototype);
 Text.prototype.constructor = Circle;
 
 Text.prototype.render = function () {
-    //render a circle
-    console.log("hello");
+    //render a text
+    //drawio.ctx.beginPath();
+    //drawio.ctx.rect(this.position.x, this.position.y, this.width, this.height);
+    //drawio.ctx.stroke();
+    //drawio.ctx.closePath();
+    drawio.ctx.font = '50px serif';
+    drawio.ctx.strokeText('Hello world', this.position.x, this.position.y, 140);
+
     
 };
 Text.prototype.resize = function (x, y) {
-    this.width = Math.abs(x - this.position.x);
-    this.height = Math.abs(y - this.position.y); 
+    this.width = x - this.position.x;
+    this.height = y - this.position.y; 
     //drawio.ctx.moveTo(x, y);
 };
 
