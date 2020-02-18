@@ -1,6 +1,7 @@
 window.drawio = {
     shapes: [],
     strokeSize: 2,
+    color:"#000000",
     selectedShape: 'pencil', // by default
     canvas: document.getElementById('my-canvas'),
     ctx: document.getElementById('my-canvas').getContext('2d'),//halda utan um canvas contexid
@@ -43,18 +44,22 @@ $(function () {
         $('#brushSize').val(inputEvent.target.value);
     });
 
+    $('#color').on('input', function (inputEvent) {
+        drawio.color = inputEvent.target.value;
+    })
+
     //mousedown
     $('#my-canvas').on('mousedown', function (mouseEvent){
         switch (drawio.selectedShape) {
             case drawio.availableShapes.RECTANGLE:
-                drawio.selectedElement = new Rectangle({x: mouseEvent.offsetX, y: mouseEvent.offsetY} , 0, 0, drawio.strokeSize);
+                drawio.selectedElement = new Rectangle({x: mouseEvent.offsetX, y: mouseEvent.offsetY} , 0, 0, drawio.strokeSize, drawio.color);
                 break;
             // Hérna bæti ég circle inn
             case drawio.availableShapes.CIRCLE:
-                drawio.selectedElement = new Circle({x: mouseEvent.offsetX, y: mouseEvent.offsetY}, 0, 0, drawio.strokeSize);
+                drawio.selectedElement = new Circle({x: mouseEvent.offsetX, y: mouseEvent.offsetY}, 0, 0, drawio.strokeSize, drawio.color);
                 break;
             case drawio.availableShapes.PENCIL:
-                drawio.selectedElement = new Pencil({x: mouseEvent.offsetX, y: mouseEvent.offsetY}, drawio.strokeSize)
+                drawio.selectedElement = new Pencil({x: mouseEvent.offsetX, y: mouseEvent.offsetY}, drawio.strokeSize, drawio.color)
                 // add point with offset of 1 to draw a dot if just clicking
                 drawio.selectedElement.addPoint(mouseEvent.offsetX + 1, mouseEvent.offsetY + 1); 
                 break;
@@ -63,7 +68,7 @@ $(function () {
                 break;
             // Line
             case drawio.availableShapes.LINE:
-                drawio.selectedElement = new Line({x: mouseEvent.offsetX, y: mouseEvent.offsetY});
+                drawio.selectedElement = new Line({x: mouseEvent.offsetX, y: mouseEvent.offsetY}, drawio.strokeSize, drawio.color);
                 break;
         }
         drawCanvas();
