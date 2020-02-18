@@ -68,7 +68,7 @@ $(function () {
                 break;
             // Line
             case drawio.availableShapes.LINE:
-                drawio.selectedElement = new Line({x: mouseEvent.offsetX, y: mouseEvent.offsetY}, 0, 0, drawio.strokeSize, drawio.color);
+                drawio.selectedElement = new Line({x: mouseEvent.offsetX, y: mouseEvent.offsetY}, drawio.strokeSize, drawio.color);
                 break;
         }
         drawCanvas();
