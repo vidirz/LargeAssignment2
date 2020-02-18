@@ -85,9 +85,9 @@ Circle.prototype.render = function () {
     drawio.ctx.closePath();
 };
 Circle.prototype.resize = function (x, y) {
-    this.width = Math.abs(x - this.position.x);
-    this.height = Math.abs(y - this.position.y); 
-    //drawio.ctx.moveTo(x, y);
+    this.width = Math.abs(x-this.position.x);
+    this.height = Math.abs(y-this.position.y);
+    this.radius = Math.sqrt(Math.pow(this.width,2)+Math.pow(this.height,2)); 
 };
 
 /////////////Circle END///////////////////////
@@ -148,13 +148,13 @@ Line.prototype.constructor = Line;
 
 Line.prototype.render = function () {
     //render a line
-    console.log("Line");
     drawio.ctx.beginPath();
     drawio.ctx.lineWidth = this.strokeSize;
     drawio.ctx.strokeStyle = this.color;
     drawio.ctx.moveTo(this.position.x, this.position.y);
     drawio.ctx.lineTo(this.width, this.height);
     drawio.ctx.stroke();
+    drawio.ctx.closePath();
 };
 
 Line.prototype.resize = function (x, y) {

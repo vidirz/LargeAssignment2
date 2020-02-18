@@ -34,7 +34,14 @@ $(function () {
     });
 
     $('#brushSize').on('input', function (inputEvent) {
+        console.log("this is input: ", inputEvent.target.value);
         drawio.strokeSize = inputEvent.target.value;
+        $('#brushSize2').val(inputEvent.target.value);
+    });
+    $('#brushSize2').on('input', function (inputEvent) {
+        console.log("this is input: ", inputEvent.target.value);
+        drawio.strokeSize = inputEvent.target.value;
+        $('#brushSize').val(inputEvent.target.value);
     });
 
     $('#color').on('input', function (inputEvent) {
