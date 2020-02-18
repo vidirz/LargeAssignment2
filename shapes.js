@@ -12,16 +12,18 @@ Shape.prototype.move = function (position) {
 
 Shape.prototype.resize = function () {};
 
-function Rectangle(position, width, height) {
+function Rectangle(position, width, height, strokeSize) {
     Shape.call(this, position);
     this.width = width;
     this.height = height;
+    this.strokeSize = strokeSize;
 };
 // Fyrir circle:
-function Circle(position, width, height){
+function Circle(position, width, height, strokeSize){
     Shape.call(this, position);
     this.width = width;
     this.height = height;
+    this.strokeSize = strokeSize;
 };
 // Fyrir text:
 
@@ -44,6 +46,8 @@ Rectangle.prototype.constructor = Rectangle;
 
 Rectangle.prototype.render = function () {
     //Render a rectangle
+    drawio.ctx.beginPath();
+    drawio.ctx.lineWidth = this.strokeSize;
     drawio.ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
 };
 
@@ -59,8 +63,8 @@ Circle.prototype.constructor = Circle;
 
 Circle.prototype.render = function () {
     //render a circle
-    console.log("hello");
     drawio.ctx.beginPath();
+    drawio.ctx.lineWidth = this.strokeSize;
     drawio.ctx.arc(this.position.x, this.position.y, this.height, 0, Math.PI * 2);// var kominn hingad..
     drawio.ctx.stroke();
     drawio.ctx.closePath();
