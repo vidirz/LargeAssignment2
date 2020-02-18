@@ -45,6 +45,11 @@ function Line(position, width, height){
     this.width = width;
     this.height = height;
 };
+function myInputFunction() {
+    var person = prompt("Please enter your name", "");
+    
+    return (person);
+}
 
 ////////////////Rectangle/////////////////////
 //Assign the prototype
@@ -121,8 +126,8 @@ Text.prototype.render = function () {
     //drawio.ctx.stroke();
     //drawio.ctx.closePath();
     drawio.ctx.font = '50px serif';
-    drawio.ctx.fillText('Hello world', this.position.x, this.position.y, 140);
-
+    drawio.ctx.fillText(myInputFunction(), this.position.x, this.position.y, 140);
+    drawio.selectedElement = false; //slekkur a loopunni
     
 };
 Text.prototype.resize = function (x, y) {
