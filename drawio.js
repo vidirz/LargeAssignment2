@@ -90,9 +90,6 @@ $(function () {
                 break;
         }
 
-        if(ctx.isPointInPath(startX,startY)){
-            var selected = true;
-        };
 
         drawCanvas();
     });
