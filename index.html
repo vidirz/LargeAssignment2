@@ -73,8 +73,13 @@
                 <i class="fa fa-pencil" aria-hidden="true"></i>
             </div>
             <div id="settings">
-                Brush Size:<br />
-                <input name="brush" id="brushSize" type="range" value="1"  min="1" max="10" />
+               
+                <div style="display: flex;">
+                    <label for="brush"><p style="width: 80px;">Brush size: </p></label>
+                    <input name="brush" id="brushSize" type="range" value="1"  min="1" max="10" />
+                    <label for="brush"><p style="text-align: center; margin-left: 20px;">Size: </p></label>
+                    <input type="text" id="brushSize2" name="brush" style="width: 20px; height: 20px; align-self: center;"><br><br>
+                </div>
             </div>
             <div class="icon" data-shape="text">
                 <i class="fa fa-file-text-o" aria-hidden="true"></i>
