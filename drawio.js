@@ -39,15 +39,14 @@ $(function () {
     $('#save').on('click', function () {
         var drawingName = prompt("Save as:", "");
 
-        if (drawingName === "") {
-            alert("Name not valid");
+        if (drawingName === null) {
             return;
           }
         if (localStorage.getItem(drawingName) === null) {
             localStorage.setItem(drawingName, drawio.canvas.toDataURL());
           }
         else {
-            alert("That name is taken");
+            alert("That name is not valid or already taken");
         }
     })
 
