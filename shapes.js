@@ -34,8 +34,9 @@ function Pencil(position, strokeSize, color) {
     this.points = [];
 }
 
-function Text(position, width, height){
-    Shape.call(this, position);
+function Text(position, text, width, height){
+    Shape.call(this, position, width, height);
+    this.text = text;
     this.width = width;
     this.height = height;
 }
@@ -49,7 +50,6 @@ function Line(position, width, height, strokeSize, color){
 function myInputFunction() {
     //var person = prompt("Please enter your name", "");
     var person = $("#textUser").val();
-
     
 
     return (person);
@@ -173,20 +173,13 @@ Pencil.prototype.addPoint = function(x, y) {
 
 //////////////Text//////////////////////////
 Text.prototype = Object.create(Shape.prototype);
-Text.prototype.constructor = Circle;
+Text.prototype.constructor = Text;
 
 Text.prototype.render = function () {
-    //render a text
-    //drawio.ctx.beginPath();
-    //drawio.ctx.rect(this.position.x, this.position.y, this.width, this.height);
-    //drawio.ctx.stroke();
-    //drawio.ctx.closePath();
-    console.log("DRAWIO: ", drawio);
     drawio.ctx.font = '50px serif';
-    drawio.ctx.fillText(myInputFunction(), this.position.x, this.position.y, 140);
-    //drawio.selectedElement = false; //slekkur a loopunni
-    
+    drawio.ctx.fillText(this.text, this.position.x, this.position.y);
 };
+
 Text.prototype.resize = function (x, y) {
     this.width = x - this.position.x;
     this.height = y - this.position.y; 

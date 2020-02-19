@@ -23,6 +23,8 @@ $(function () {
     function drawCanvas() {
         
         for( var i = 0; i < drawio.shapes.length; i++) {
+            //console.log("these are the shapes: ", drawio.shapes);
+            console.log("LENGTH: ", drawio.shapes.length);
             drawio.shapes[i].render();
         }
         if(drawio.selectedElement) {
@@ -71,20 +73,11 @@ $(function () {
     })
 
     $('#clearSave').on('click', function () {
-        let choice = confirm("Do you want to delete all saved drawings?");
+        var choice = confirm("Do you want to delete all saved drawings?");
         if (choice == true) {
             localStorage.clear();
         } 
     })
-
-    $('#clearCanvas').on('click', function () {
-        let choice = confirm("Do you want to clear the canvas?");
-        if (choice == true) {
-            drawio.shapes = [];
-            drawio.ctx.clearRect(0,0, drawio.canvas.width, drawio.canvas.height);
-        } 
-    })
-
     // Undo 
     $('#undo').on('click', function () {
         drawio.undo.push(drawio.shapes.pop());
@@ -104,16 +97,20 @@ $(function () {
         $('#brushSize2').val(inputEvent.target.value);
     });
     $('#brushSize2').on('input', function (inputEvent) {
-        console.log("this is input: ", inputEvent.target.value);
+       // console.log("this is input: ", inputEvent.target.value);
         drawio.strokeSize = inputEvent.target.value;
         $('#brushSize').val(inputEvent.target.value);
     });
+    // $('#textUser').on('input', function (inputEvent) {
+    //      console.log("this is input!!!: ", inputEvent.target.value);
+    //      drawio.strokeSize = inputEvent.target.value;
+    //      console.log("what is it: ", $('#textUser').val(inputEvent.target.value));
+    // });
     $('#textUser').on('input', function (inputEvent) {
-        console.log("this is input: ", inputEvent.target.value);
         drawio.strokeSize = inputEvent.target.value;
-        $('#textUser').val(inputEvent.target.value);
+        drawio.textInput = $('#textUser').val();
     });
-    // Change color
+     // Change color
     $('#color').on('input', function (inputEvent) {
         drawio.color = inputEvent.target.value;
     })
@@ -134,7 +131,7 @@ $(function () {
                 drawio.selectedElement.addPoint(mouseEvent.offsetX + 1, mouseEvent.offsetY + 1); 
                 break;
             case drawio.availableShapes.TEXT:
-                drawio.selectedElement = new Text({x: mouseEvent.offsetX, y: mouseEvent.offsetY}, 0, 0);
+                drawio.selectedElement = new Text({x: mouseEvent.offsetX, y: mouseEvent.offsetY}, drawio.textInput, 0, 0);
                 break;
             // Line
             case drawio.availableShapes.LINE:
