@@ -126,6 +126,23 @@ Circle.prototype.resize = function (x, y) {
     this.radius = Math.sqrt(Math.pow(this.width,2)+Math.pow(this.height,2)); 
 };
 
+Circle.prototype.hit = function (x, y) {
+    
+    // calculate the hit points distance from the center of the circle
+    distance = Math.sqrt(Math.pow((x - this.position.x), 2) + Math.pow((y - this.position.y), 2));
+
+    // if the distance is less then the radius it is a hit
+    console.log("dis: " + distance + " rad: " + this.radius);
+    if(distance < this.radius) {
+        console.log("true");
+        return true;
+    }
+    else {
+        console.log("false");
+        return false;
+    }
+};
+
 /////////////Circle END///////////////////////
 
 ///////////////////Pen////////////////////////

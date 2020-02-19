@@ -132,8 +132,9 @@ $(function () {
                 drawio.selectedElement = new Line({x: mouseEvent.offsetX, y: mouseEvent.offsetY}, drawio.strokeSize, drawio.color);
                 break;
             case drawio.availableShapes.POINTER:
-                //loop through all shapes in reverse order to check if pointer hit something
-                for(var i = drawio.shapes.length-1; i >= 0; i--) {
+                //loop through all shapes to check if pointer hit something
+                for(var i = 0; i < drawio.shapes.length; i++) {
+                    // if the a hit happens then the hit element becomes the selected element
                     if(drawio.shapes[i].hit(mouseEvent.offsetX, mouseEvent.offsetY)) {
                         drawio.selectedElement = drawio.shapes[i];
                     }
