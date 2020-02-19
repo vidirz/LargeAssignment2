@@ -162,6 +162,33 @@ Pencil.prototype.addPoint = function(x, y) {
     point.push(x);
     point.push(y);
     this.points.push(point);
+};
+
+Pencil.prototype.hit = function (x, y) {
+    //for every point find the distance to the hit point and check if it is shorter than the stroke size
+    for(var i = 0; i < this.points.length; i++) {
+        var distance = Math.sqrt(Math.pow((x - this.points[i][0]), 2) + Math.pow((y - this.points[i][1]), 2));
+        if(distance <= this.strokeSize + 2) {
+            return true;
+        }
+    }
+    return false;
+};
+
+Pencil.prototype.move = function (position) {
+    //find the distance between the old starting point and the new one
+    var disX = this.position.x - position.x;
+    var disY = this.position.y - position.y;
+    
+    // move that starting point
+    this.position.x = position.x;
+    this.position.y = position.y;
+
+    // move every poin that distance
+    for(i = 0; i < this.points.length; i++) {
+       this.points[i][0] = this.points[i][0] - disX ;
+       this.points[i][1] = this.points[i][1] - disY;
+    }
 }
 
 ///////////////////Pen END////////////////////
@@ -248,16 +275,16 @@ Line.prototype.hit = function (x, y) {
 
 Line.prototype.move = function (position) {
     //find the distance between the points
-    var disX = this.position.x - this.endpoint.x;
-    var disY = this.position.y - this.endpoint.y;
+    var disX = this.position.x - position.x;
+    var disY = this.position.y - position.y;
     
     //move the starting point
     this.position.x = position.x;
     this.position.y = position.y;
 
     // move the end point
-    this.endpoint.x = position.x + disX;
-    this.endpoint.y = position.y + disY;
+    this.endpoint.x = this.endpoint.x - disX;
+    this.endpoint.y = this.endpoint.y - disY;
 };
 
 ////////////////Line END/////////////////////
