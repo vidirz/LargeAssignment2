@@ -71,11 +71,20 @@ $(function () {
     })
 
     $('#clearSave').on('click', function () {
-        var choice = confirm("Do you want to delete all saved drawings?");
+        let choice = confirm("Do you want to delete all saved drawings?");
         if (choice == true) {
             localStorage.clear();
         } 
     })
+
+    $('#clearCanvas').on('click', function () {
+        let choice = confirm("Do you want to clear the canvas?");
+        if (choice == true) {
+            drawio.shapes = [];
+            drawio.ctx.clearRect(0,0, drawio.canvas.width, drawio.canvas.height);
+        } 
+    })
+
     // Undo 
     $('#undo').on('click', function () {
         drawio.undo.push(drawio.shapes.pop());

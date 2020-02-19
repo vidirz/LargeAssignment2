@@ -75,6 +75,11 @@
                 color: orange;
                 cursor: pointer;
             }
+
+            #clearSave {
+                transform: rotate(45deg);
+            }
+
         </style>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
     </head>
@@ -108,7 +113,7 @@
                 <p class="text" aria-hidden="true">T</p>
             </div>
             <div class="icon" data-shape="line">
-                <i class="line" aria-hidden="true">—</i>
+                <i class="line" id="line" aria-hidden="true">—</i>
             </div>
             <div class="icon" data-shape="pointer">
                 <i class="fa fa-mouse-pointer" aria-hidden="true"></i>
@@ -119,8 +124,11 @@
             <div class="icon" id="load" data-shape="save">
                 <i class="fa fa-upload" aria-hidden="true"></i>
             </div>
-            <div class="icon" id="clearSave" data-shape="trash">
-                <i class="fa fa-trash" aria-hidden="true"></i>
+            <div class="icon" data-shape="trash">
+                <i class="fa fa-plus" id="clearSave" aria-hidden="true"></i>
+            </div>
+            <div class="icon" data-shape="trash">
+                <i class="fa fa-trash" id="clearCanvas" aria-hidden="true"></i>
             </div>
             <div class="undoRedo" id="undo">
                 <i class="fa fa-undo" aria-hidden="true"></i>
