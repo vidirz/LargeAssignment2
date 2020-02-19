@@ -20,11 +20,12 @@ $(function () {
     // Document is loaded and parsed
 
     function drawCanvas() {
-        if(drawio.selectedElement) {
-            drawio.selectedElement.render();
-        }
+        
         for( var i = 0; i < drawio.shapes.length; i++) {
             drawio.shapes[i].render();
+        }
+        if(drawio.selectedElement) {
+            drawio.selectedElement.render();
         }
     };
 
