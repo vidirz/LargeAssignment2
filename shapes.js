@@ -35,8 +35,7 @@ function Pencil(position, strokeSize, color) {
 }
 
 function Text(position, width, height){
-    Shape.call(this, position, color);
-    this.words = [];
+    Shape.call(this, position);
     this.width = width;
     this.height = height;
 }
@@ -49,9 +48,9 @@ function Line(position, width, height, strokeSize, color){
 };
 function myInputFunction() {
     //var person = prompt("Please enter your name", "");
-    //var person = $("#textUser").val();
-    //console.log($("#textUser"));
     var person = $("#textUser").val();
+
+    
 
     return (person);
 }
@@ -182,15 +181,10 @@ Text.prototype.render = function () {
     //drawio.ctx.rect(this.position.x, this.position.y, this.width, this.height);
     //drawio.ctx.stroke();
     //drawio.ctx.closePath();
+    console.log("DRAWIO: ", drawio);
     drawio.ctx.font = '50px serif';
-    var newstuff = myInputFunction();
-    drawio.ctx.strokeStyle = this.color; //virkar ekki
-    drawio.ctx.fillText(newstuff, this.position.x, this.position.y, 140);
-    drawio.selectedElement = false; //slekkur a loopunni
-    this.words.push(newstuff);
-    console.log("newstuff: ", newstuff);
-    console.log("this.words: ", this.words);
-    //console.log($("#textUser"))
+    drawio.ctx.fillText(myInputFunction(), this.position.x, this.position.y, 140);
+    //drawio.selectedElement = false; //slekkur a loopunni
     
 };
 Text.prototype.resize = function (x, y) {
