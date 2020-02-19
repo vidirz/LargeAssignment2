@@ -41,15 +41,14 @@ $(function () {
     $('#save').on('click', function () {
         var drawingName = prompt("Save as:", "");
 
-        if (drawingName === "") {
-            alert("Name not valid");
+        if (drawingName === null) {
             return;
           }
         if (localStorage.getItem(drawingName) === null) {
             localStorage.setItem(drawingName, drawio.canvas.toDataURL());
           }
         else {
-            alert("That name is taken");
+            alert("That name is not valid or already taken");
         }
     })
 
@@ -172,8 +171,14 @@ $(function () {
 
     //mouseup
     $('#my-canvas').on('mouseup', function () {
-        if(drawio.selectedElement && drawio.selectedShape != drawio.availableShapes.POINTER) {
-            drawio.shapes.push(drawio.selectedElement);
+        if(drawio.selectedElement) {
+            // this is just for Line calculations
+            drawio.selectedElement.findPoints();
+
+            // only push new elements onto the array
+            if(drawio.selectedShape != drawio.availableShapes.POINTER) {
+                drawio.shapes.push(drawio.selectedElement);
+            }
         }
         drawio.selectedElement = null;
     });
