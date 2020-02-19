@@ -182,15 +182,15 @@ Text.prototype.render = function () {
     //drawio.ctx.stroke();
     //drawio.ctx.closePath();
     drawio.ctx.font = '50px serif';
-    drawio.ctx.fillText(myInputFunction(), this.position.x, this.position.y);
+    drawio.ctx.fillText(myInputFunction(), this.position.x, this.position.y, 140);
     //drawio.selectedElement = false; //slekkur a loopunni
     
 };
-// Text.prototype.resize = function (x, y) {
-//     this.width = x - this.position.x;
-//     this.height = y - this.position.y; 
-//     //drawio.ctx.moveTo(x, y);
-// };
+Text.prototype.resize = function (x, y) {
+    this.width = x - this.position.x;
+    this.height = y - this.position.y; 
+    //drawio.ctx.moveTo(x, y);
+};
 
 /////////////Text END///////////////////////
 
