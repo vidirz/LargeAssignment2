@@ -35,7 +35,7 @@ function Pencil(position, strokeSize, color) {
 }
 
 function Text(position, width, height){
-    Shape.call(this, position);
+    Shape.call(this, position, color);
     this.words = [];
     this.width = width;
     this.height = height;
@@ -167,9 +167,12 @@ Text.prototype.render = function () {
     //drawio.ctx.closePath();
     drawio.ctx.font = '50px serif';
     var newstuff = myInputFunction();
+    drawio.ctx.strokeStyle = this.color; //virkar ekki
     drawio.ctx.fillText(newstuff, this.position.x, this.position.y, 140);
     drawio.selectedElement = false; //slekkur a loopunni
     this.words.push(newstuff);
+    console.log("newstuff: ", newstuff);
+    console.log("this.words: ", this.words);
     //console.log($("#textUser"))
     
 };
