@@ -166,8 +166,14 @@ $(function () {
 
     //mouseup
     $('#my-canvas').on('mouseup', function () {
-        if(drawio.selectedElement && drawio.selectedShape != drawio.availableShapes.POINTER) {
-            drawio.shapes.push(drawio.selectedElement);
+        if(drawio.selectedElement) {
+            // this is just for Line calculations
+            drawio.selectedElement.findPoints();
+
+            // only push new elements onto the array
+            if(drawio.selectedShape != drawio.availableShapes.POINTER) {
+                drawio.shapes.push(drawio.selectedElement);
+            }
         }
         drawio.selectedElement = null;
     });

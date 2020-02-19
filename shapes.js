@@ -16,6 +16,8 @@ Shape.prototype.resize = function () {};
 
 Shape.prototype.hit = function () {};
 
+Shape.prototype.findPoints = function () {};
+
 function Rectangle(position, width, height, strokeSize, color) {
     Shape.call(this, position, strokeSize, color);
     this.width = width;
@@ -41,10 +43,10 @@ function Text(position, width, height){
 }
 
 // Line
-function Line(position, width, height, strokeSize, color){
+function Line(position, strokeSize, color){
     Shape.call(this, position, strokeSize, color);
-    this.width = width;
-    this.height = height;
+    this.endpoint = {};
+    this.points = [];
 };
 function myInputFunction() {
     //var person = prompt("Please enter your name", "");
@@ -126,20 +128,13 @@ Circle.prototype.resize = function (x, y) {
 };
 
 Circle.prototype.hit = function (x, y) {
-    
+
     // calculate the hit points distance from the center of the circle
     distance = Math.sqrt(Math.pow((x - this.position.x), 2) + Math.pow((y - this.position.y), 2));
 
     // if the distance is less then the radius it is a hit
-    console.log("dis: " + distance + " rad: " + this.radius);
-    if(distance < this.radius) {
-        console.log("true");
-        return true;
-    }
-    else {
-        console.log("false");
-        return false;
-    }
+    if(distance < this.radius) {return true;}
+    else {return false;}
 };
 
 /////////////Circle END///////////////////////
@@ -204,14 +199,65 @@ Line.prototype.render = function () {
     drawio.ctx.lineWidth = this.strokeSize;
     drawio.ctx.strokeStyle = this.color;
     drawio.ctx.moveTo(this.position.x, this.position.y);
-    drawio.ctx.lineTo(this.width, this.height);
+    drawio.ctx.lineTo(this.endpoint.x, this.endpoint.y);
     drawio.ctx.stroke();
     drawio.ctx.closePath();
 };
 
 Line.prototype.resize = function (x, y) {
-    this.width = x;
-    this.height = y;
+    this.endpoint.x = x;
+    this.endpoint.y = y;
+};
+
+Line.prototype.findPoints = function () {
+    // clear current points
+    this.points = [];
+
+    //find the equation of the line
+    var slope = (this.position.y - this.endpoint.y) / (this.position.x - this.endpoint.x);
+    var interceptY = this.endpoint.y - (this.endpoint.x * slope);
+    var y = null;
+
+    // if statement is to check if x has to be incremented or decremented
+    if(this.position.x > this.endpoint.x) {
+        // find every point in the line
+        for(var i = this.position.x; i >= this.endpoint.x; i--) {
+            y = (slope * i) + interceptY;
+            this.points.push([i, y]);
+        }
+    }
+    else{
+        // find every point in the line
+        for(var i = this.position.x; i <= this.endpoint.x; i++) {
+            y = (slope * i) + interceptY;
+            this.points.push([i, y]);
+        }
+    }
+};
+
+Line.prototype.hit = function (x, y) {
+    //for every point find the distance to the hit point and check if it is shorter than the stroke size
+    for(var i = 0; i < this.points.length; i++) {
+        var distance = Math.sqrt(Math.pow((x - this.points[i][0]), 2) + Math.pow((y - this.points[i][1]), 2));
+        if(distance <= this.strokeSize+2) {
+            return true;
+        }
+    }
+    return false;
+};
+
+Line.prototype.move = function (position) {
+    //find the distance between the points
+    var disX = this.position.x - this.endpoint.x;
+    var disY = this.position.y - this.endpoint.y;
+    
+    //move the starting point
+    this.position.x = position.x;
+    this.position.y = position.y;
+
+    // move the end point
+    this.endpoint.x = position.x + disX;
+    this.endpoint.y = position.y + disY;
 };
 
 ////////////////Line END/////////////////////
