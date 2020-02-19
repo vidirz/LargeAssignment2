@@ -35,15 +35,9 @@ function Pencil(position, strokeSize, color) {
     this.points = [];
 }
 
-<<<<<<< HEAD
 function Text(position, text, width, height){
     Shape.call(this, position, width, height);
     this.text = text;
-=======
-// Fyrir text:
-function Text(position, width, height){
-    Shape.call(this, position);
->>>>>>> 6b9f856eecb73c9b72ce14a6fc22783d7e10a710
     this.width = width;
     this.height = height;
 }
