@@ -13,6 +13,7 @@ window.drawio = {
         PENCIL: 'pencil',
         TEXT: 'text',
         LINE: 'line',
+        POINTER: 'pointer',
     }
 };
 
@@ -75,19 +76,19 @@ $(function () {
             localStorage.clear();
         } 
     })
-
+    // Undo 
     $('#undo').on('click', function () {
         drawio.undo.push(drawio.shapes.pop());
         drawio.ctx.clearRect(0,0, drawio.canvas.width, drawio.canvas.height);
         drawCanvas();
     })
-
+    // Redo
     $('#redo').on('click', function () {
         drawio.shapes.push(drawio.undo.pop());
         drawio.ctx.clearRect(0,0, drawio.canvas.width, drawio.canvas.height);
         drawCanvas();
     })
-
+    // Change brush size
     $('#brushSize').on('input', function (inputEvent) {
         //console.log("this is input: ", inputEvent.target.value);
         drawio.strokeSize = inputEvent.target.value;
@@ -103,7 +104,7 @@ $(function () {
         drawio.strokeSize = inputEvent.target.value;
         $('#textUser').val(inputEvent.target.value);
     });
-
+    // Change color
     $('#color').on('input', function (inputEvent) {
         drawio.color = inputEvent.target.value;
     })
@@ -130,6 +131,14 @@ $(function () {
             case drawio.availableShapes.LINE:
                 drawio.selectedElement = new Line({x: mouseEvent.offsetX, y: mouseEvent.offsetY}, drawio.strokeSize, drawio.color);
                 break;
+            case drawio.availableShapes.POINTER:
+                //loop through all shapes in reverse order to check if pointer hit something
+                for(var i = drawio.shapes.length-1; i >= 0; i--) {
+                    if(drawio.shapes[i].hit(mouseEvent.offsetX, mouseEvent.offsetY)) {
+                        drawio.selectedElement = drawio.shapes[i];
+                    }
+                }
+                break;
         }
 
 
@@ -143,6 +152,9 @@ $(function () {
                 case drawio.availableShapes.PENCIL:
                     drawio.selectedElement.addPoint(mouseEvent.offsetX, mouseEvent.offsetY);
                     break;
+                case drawio.availableShapes.POINTER:
+                    drawio.selectedElement.move({x: mouseEvent.offsetX, y: mouseEvent.offsetY});
+                    break;
                 default:
                     drawio.selectedElement.resize(mouseEvent.offsetX, mouseEvent.offsetY);
                     break;
@@ -153,7 +165,9 @@ $(function () {
 
     //mouseup
     $('#my-canvas').on('mouseup', function () {
-        drawio.shapes.push(drawio.selectedElement);
+        if(drawio.selectedElement && drawio.selectedShape != drawio.availableShapes.POINTER) {
+            drawio.shapes.push(drawio.selectedElement);
+        }
         drawio.selectedElement = null;
     });
     $('#my-canvas').on('onclick', function () {
