@@ -1,7 +1,9 @@
 //function a drawing appinu
 
-function Shape(position) {
+function Shape(position, strokeSize, color) {
     this.position = position;
+    this.strokeSize = strokeSize;
+    this.color = color;
 };
 
 Shape.prototype.render = function () {};// Rectangle mun erfa Shape
@@ -12,28 +14,24 @@ Shape.prototype.move = function (position) {
 
 Shape.prototype.resize = function () {};
 
+Shape.prototype.hit = function () {};
+
 function Rectangle(position, width, height, strokeSize, color) {
-    Shape.call(this, position);
+    Shape.call(this, position, strokeSize, color);
     this.width = width;
     this.height = height;
-    this.strokeSize = strokeSize;
-    this.color = color;
 };
 // Fyrir circle:
 function Circle(position, width, height, strokeSize, color){
-    Shape.call(this, position);
+    Shape.call(this, position, strokeSize, color);
     this.width = width;
     this.height = height;
-    this.strokeSize = strokeSize;
-    this.color = color;
 };
 // Fyrir text:
 
-function Pencil(postion, strokeSize, color) {
-    Shape.call(this, postion);
+function Pencil(position, strokeSize, color) {
+    Shape.call(this, position, strokeSize, color);
     this.points = [];
-    this.strokeSize = strokeSize;
-    this.color = color;
 }
 
 function Text(position, width, height){
@@ -45,11 +43,9 @@ function Text(position, width, height){
 
 // Line
 function Line(position, width, height, strokeSize, color){
-    Shape.call(this, position);
+    Shape.call(this, position, strokeSize, color);
     this.width = width;
     this.height = height;
-    this.strokeSize = strokeSize;
-    this.color = color;
 };
 function myInputFunction() {
     //var person = prompt("Please enter your name", "");
@@ -77,6 +73,37 @@ Rectangle.prototype.render = function () {
 Rectangle.prototype.resize = function (x, y) {
     this.width = x - this.position.x;
     this.height = y - this.position.y;
+};
+
+Rectangle.prototype.hit = function (x, y) {
+
+    // Find edge values
+    if(this.width < 0) {
+        this.left = this.position.x + this.width;
+        this.right = this.position.x;
+    }
+    else {
+        this.left = this.position.x;
+        this.right = this.position.x + this.width;
+    }
+
+    if(this.height < 0) {
+        this.bottom = this.position.y + this.height;
+        this.top = this.position.y;
+    }
+    else {
+        this.bottom = this.position.y;
+        this.top = this.position.y + this.height;
+    }
+
+    // check if hit position is within the edges
+    if(x > this.left && x < this.right) {
+        if(y > this.bottom && y < this.top) {
+            return true;
+        }
+    }
+
+    return false;
 };
 //////////////Rectangle END///////////////////
 
