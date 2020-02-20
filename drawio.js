@@ -71,11 +71,15 @@ $(function () {
         };
     })
 
-    $('#clearSave').on('click', function () {
+    $('#clearCanvas').on('click', function () {
         var choice = confirm("Do you want to delete all saved drawings?");
         if (choice == true) {
             localStorage.clear();
-            drawio.ctx.clearRect(0,0, drawio.canvas.width, drawio.canvas.height);
+            while(drawio.shapes.length > 0){
+                drawio.undo.push(drawio.shapes.pop());
+                drawio.ctx.clearRect(0,0, drawio.canvas.width, drawio.canvas.height);
+                drawCanvas();
+            }
         } 
     })
 
