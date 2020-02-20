@@ -116,7 +116,7 @@ Circle.prototype.render = function () {
     drawio.ctx.beginPath();
     drawio.ctx.lineWidth = this.strokeSize;
     drawio.ctx.strokeStyle = this.color;
-    drawio.ctx.arc(this.position.x, this.position.y, this.height, 0, Math.PI * 2);// var kominn hingad..
+    drawio.ctx.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2);// var kominn hingad..
     drawio.ctx.stroke();
     drawio.ctx.closePath();
 };
