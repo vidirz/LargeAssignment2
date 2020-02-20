@@ -1,6 +1,7 @@
 window.drawio = {
     shapes: [],
     undo: [],
+    loadedIMG: "",
     strokeSize: 10,
     fontSize: 30,
     font: "impact",
@@ -23,7 +24,9 @@ $(function () {
     // Document is loaded and parsed
 
     function drawCanvas() {
-        
+        if( drawio.loadedIMG != ''){
+            drawio.ctx.drawImage(drawio.loadedIMG, 0, 0);
+        }
         for( var i = 0; i < drawio.shapes.length; i++) {
             drawio.shapes[i].render();
         }
@@ -63,10 +66,13 @@ $(function () {
             return;
           }
         drawio.ctx.clearRect(0,0, drawio.canvas.width, drawio.canvas.height);
+        drawio.shapes = [];
         var dataURL = localStorage.getItem(drawingName);
+        console.log(dataURL);
         var img = new Image;
         img.src = dataURL;
         img.onload = function () {
+            drawio.loadedIMG = img;
             drawio.ctx.drawImage(img, 0, 0);
         };
     })
@@ -75,9 +81,11 @@ $(function () {
         var choice = confirm("Do you want to delete all saved drawings?");
         if (choice == true) {
             localStorage.clear();
+            drawio.loadedIMG = '';
             while(drawio.shapes.length > 0){
                 drawio.undo.push(drawio.shapes.pop());
                 drawio.ctx.clearRect(0,0, drawio.canvas.width, drawio.canvas.height);
+                
                 drawCanvas();
             }
         } 
