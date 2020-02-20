@@ -44,9 +44,9 @@
             }
             
             #settings {
-                position: relative;
+                position: static;
                 display: flex;
-                font-size: 1em;
+                font-size: 1.5em;
                 float: right;
                 flex-direction: column;
                 top: 15px;
@@ -148,16 +148,36 @@
             </div>
         </nav>
         <div id="settings">
-            <label for="color">Color:</label>
-            <input id="color" type="color"/>
-            <label for="brush">Brush size:</label>
-            <input name="brush" id="brushSize" type="range" value="10"  min="1" max="10" />
-            <label for="brush">Size:</label>
-            <input type="text" id="brushSize2" name="brush" style="width: 20px; height: 20px; align-self: center;" value="10">
-            <label for="input">Input text:</label>
-            <input id="textUser" style="align-self: center;">
+            <div>
+                <label for="color">Color:</label>
+                <input id="color" type="color"/>
+            </div>
+            <div>
+                <label for="brush">Brush size:</label>
+                <input name="brush" id="brushSize" type="range" value="10"  min="1" max="10" />
+                <label for="brush">Size:</label>
+                <input type="text" id="brushSize2" name="brush" style="width: 20px; height: 20px; align-self: center;" value="10">
+            </div>
+            <div>
+                <label for="input">Input text:</label>
+                <input id="textUser" style="align-self: center;">
+            </div>    
             <label for="fontSize">Font size:</label>
-            <input type="number" id="fontSize" style="align-self: center;" value="30"> 
+            <div>
+            <input type="number" id="fontSize" style="align-self: center;" value="30">
+                <select type="number" id="fontSize2" style="width: 20px;">
+                    <option type="number" value="10">10</option>
+                    <option type="number" value="20">20</option>
+                    <option type="number" value="30">30</option>
+                    <option type="number" value="40">40</option>
+                    <option type="number" value="50">50</option>
+                    <option type="number" value="60">60</option>
+                    <option type="number" value="70">70</option>
+                    <option type="number" value="70">80</option>
+                    <option type="number" value="70">90</option>
+                    <option type="number" value="70">100</option>
+                </select>
+            </div>
         </div>
         <div class="container">
             <canvas id="my-canvas" width="800" height="600">

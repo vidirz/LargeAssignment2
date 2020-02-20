@@ -116,12 +116,17 @@ $(function () {
     // Change text size
     $('#fontSize').on('input', function (inputEvent) {
         drawio.fontSize = inputEvent.target.value;
-    })
+        $('#fontSize2').val(inputEvent.target.value);
+    });
+    $('#fontSize2').on('input', function(inputEvent) {
+        drawio.fontSize = inputEvent.target.value;
+        $('#fontSize').val(inputEvent.target.value);
+    });
 
      // Change color
     $('#color').on('input', function (inputEvent) {
         drawio.color = inputEvent.target.value;
-    })
+    });
 
     //mousedown
     $('#my-canvas').on('mousedown', function (mouseEvent){
