@@ -1,7 +1,9 @@
 window.drawio = {
     shapes: [],
     undo: [],
-    strokeSize: 2,
+    strokeSize: 10,
+    fontSize: 30,
+    font: "impact",
     color:"#000000",
     selectedShape: 'pencil', // by default
     canvas: document.getElementById('my-canvas'),
@@ -75,18 +77,21 @@ $(function () {
             localStorage.clear();
         } 
     })
+
     // Undo 
     $('#undo').on('click', function () {
         drawio.undo.push(drawio.shapes.pop());
         drawio.ctx.clearRect(0,0, drawio.canvas.width, drawio.canvas.height);
         drawCanvas();
     })
+
     // Redo
     $('#redo').on('click', function () {
         drawio.shapes.push(drawio.undo.pop());
         drawio.ctx.clearRect(0,0, drawio.canvas.width, drawio.canvas.height);
         drawCanvas();
     })
+
     // Change brush size
     $('#brushSize').on('input', function (inputEvent) {
         //console.log("this is input: ", inputEvent.target.value);
@@ -97,16 +102,20 @@ $(function () {
        // console.log("this is input: ", inputEvent.target.value);
         drawio.strokeSize = inputEvent.target.value;
         $('#brushSize').val(inputEvent.target.value);
+
     });
-    // $('#textUser').on('input', function (inputEvent) {
-    //      console.log("this is input!!!: ", inputEvent.target.value);
-    //      drawio.strokeSize = inputEvent.target.value;
-    //      console.log("what is it: ", $('#textUser').val(inputEvent.target.value));
-    // });
+
+    // Change text
     $('#textUser').on('input', function (inputEvent) {
         drawio.strokeSize = inputEvent.target.value;
         drawio.textInput = $('#textUser').val();
     });
+
+    // Change text size
+    $('#fontSize').on('input', function (inputEvent) {
+        drawio.fontSize = inputEvent.target.value;
+    })
+
      // Change color
     $('#color').on('input', function (inputEvent) {
         drawio.color = inputEvent.target.value;
@@ -129,7 +138,7 @@ $(function () {
                 drawio.selectedElement.addPoint(mouseEvent.offsetX + 1, mouseEvent.offsetY + 1); 
                 break;
             case drawio.availableShapes.TEXT:
-                drawio.selectedElement = new Text({x: mouseEvent.offsetX, y: mouseEvent.offsetY}, drawio.textInput, 30, "serif");
+                drawio.selectedElement = new Text({x: mouseEvent.offsetX, y: mouseEvent.offsetY}, drawio.textInput, drawio.fontSize, drawio.font);
                 break;
             // Line
             case drawio.availableShapes.LINE:

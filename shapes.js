@@ -1,6 +1,6 @@
 //function a drawing appinu
 
-function Shape(position, strokeSize, color) {
+function Shape(position, color, strokeSize) {
     this.position = position;
     this.strokeSize = strokeSize;
     this.color = color;
@@ -19,19 +19,19 @@ Shape.prototype.hit = function () {};
 Shape.prototype.findPoints = function () {};
 
 function Rectangle(position, width, height, strokeSize, color) {
-    Shape.call(this, position, strokeSize, color);
+    Shape.call(this, position, color, strokeSize);
     this.width = width;
     this.height = height;
 };
 // Fyrir circle:
 function Circle(position, width, height, strokeSize, color){
-    Shape.call(this, position, strokeSize, color);
+    Shape.call(this, position, color, strokeSize);
     this.width = width;
     this.height = height;
 };
 
 function Pencil(position, strokeSize, color) {
-    Shape.call(this, position, strokeSize, color);
+    Shape.call(this, position, color, strokeSize);
     this.points = [];
 }
 
@@ -45,17 +45,10 @@ function Text(position, text, fontSize, font){
 
 // Line
 function Line(position, strokeSize, color){
-    Shape.call(this, position, strokeSize, color);
+    Shape.call(this, position, color, strokeSize);
     this.endpoint = {};
     this.points = [];
 };
-function myInputFunction() {
-    //var person = prompt("Please enter your name", "");
-    var person = $("#textUser").val();
-    
-
-    return (person);
-}
 
 ////////////////Rectangle/////////////////////
 //Assign the prototype
@@ -186,7 +179,7 @@ Pencil.prototype.move = function (position) {
 
     // move every poin that distance
     for(i = 0; i < this.points.length; i++) {
-       this.points[i][0] = this.points[i][0] - disX ;
+       this.points[i][0] = this.points[i][0] - disX;
        this.points[i][1] = this.points[i][1] - disY;
     }
 }
