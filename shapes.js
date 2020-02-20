@@ -36,8 +36,8 @@ function Pencil(position, strokeSize, color) {
     this.points = [];
 }
 
-function Text(position, text, fontSize, font){
-    Shape.call(this, position);
+function Text(position, text, color, fontSize, font){
+    Shape.call(this, position, color);
     this.text = text;
     this.fontSize = fontSize;
     this.font = fontSize + "px " + font;
@@ -193,6 +193,7 @@ Text.prototype.constructor = Text;
 
 Text.prototype.render = function () {
     drawio.ctx.font = this.font;
+    drawio.ctx.fillStyle = this.color;
     drawio.ctx.fillText(this.text, this.position.x, this.position.y);
 
     // save the width of the text for hit detection

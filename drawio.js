@@ -140,7 +140,7 @@ $(function () {
                 drawio.selectedElement.addPoint(mouseEvent.offsetX + 1, mouseEvent.offsetY + 1); 
                 break;
             case drawio.availableShapes.TEXT:
-                drawio.selectedElement = new Text({x: mouseEvent.offsetX, y: mouseEvent.offsetY}, drawio.textInput, drawio.fontSize, drawio.font);
+                drawio.selectedElement = new Text({x: mouseEvent.offsetX, y: mouseEvent.offsetY}, drawio.textInput, drawio.color, drawio.fontSize, drawio.font);
                 break;
             // Line
             case drawio.availableShapes.LINE:
