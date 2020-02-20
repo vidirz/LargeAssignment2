@@ -23,6 +23,7 @@ function Rectangle(position, width, height, strokeSize, color) {
     this.width = width;
     this.height = height;
 };
+
 // Fyrir circle:
 function Circle(position, width, height, strokeSize, color){
     Shape.call(this, position, color, strokeSize);
