@@ -75,6 +75,7 @@ $(function () {
         var choice = confirm("Do you want to delete all saved drawings?");
         if (choice == true) {
             localStorage.clear();
+            drawio.ctx.clearRect(0,0, drawio.canvas.width, drawio.canvas.height);
         } 
     })
 
