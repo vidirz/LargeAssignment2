@@ -35,11 +35,12 @@ function Pencil(position, strokeSize, color) {
     this.points = [];
 }
 
-function Text(position, text, width, height){
-    Shape.call(this, position, width, height);
+function Text(position, text, fontSize, font){
+    Shape.call(this, position);
     this.text = text;
-    this.width = width;
-    this.height = height;
+    this.fontSize = fontSize;
+    this.font = fontSize + "px " + font;
+    this.width = null;
 }
 
 // Line
@@ -197,14 +198,29 @@ Text.prototype = Object.create(Shape.prototype);
 Text.prototype.constructor = Text;
 
 Text.prototype.render = function () {
-    drawio.ctx.font = '50px serif';
+    drawio.ctx.font = this.font;
     drawio.ctx.fillText(this.text, this.position.x, this.position.y);
+
+    // save the width of the text for hit detection
+    this.width = drawio.ctx.measureText(this.text).width;
 };
 
-Text.prototype.resize = function (x, y) {
-    this.width = x - this.position.x;
-    this.height = y - this.position.y; 
-    //drawio.ctx.moveTo(x, y);
+Text.prototype.hit = function (x, y) {
+
+    // Find edge values
+    this.left = this.position.x;
+    this.right = this.position.x + this.width;
+    
+    this.bottom = this.position.y;
+    this.top = this.position.y - this.fontSize;
+
+    // check if hit position is within the edges
+    if(x > this.left && x < this.right) {
+        if(y < this.bottom && y > this.top) {
+            return true;
+        }
+    }
+    return false;
 };
 
 /////////////Text END///////////////////////

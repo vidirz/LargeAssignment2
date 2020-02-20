@@ -23,8 +23,6 @@ $(function () {
     function drawCanvas() {
         
         for( var i = 0; i < drawio.shapes.length; i++) {
-            //console.log("these are the shapes: ", drawio.shapes);
-            console.log("LENGTH: ", drawio.shapes.length);
             drawio.shapes[i].render();
         }
         if(drawio.selectedElement) {
@@ -126,11 +124,12 @@ $(function () {
                 break;
             case drawio.availableShapes.PENCIL:
                 drawio.selectedElement = new Pencil({x: mouseEvent.offsetX, y: mouseEvent.offsetY}, drawio.strokeSize, drawio.color)
+
                 // add point with offset of 1 to draw a dot if just clicking
                 drawio.selectedElement.addPoint(mouseEvent.offsetX + 1, mouseEvent.offsetY + 1); 
                 break;
             case drawio.availableShapes.TEXT:
-                drawio.selectedElement = new Text({x: mouseEvent.offsetX, y: mouseEvent.offsetY}, drawio.textInput, 0, 0);
+                drawio.selectedElement = new Text({x: mouseEvent.offsetX, y: mouseEvent.offsetY}, drawio.textInput, 30, "serif");
                 break;
             // Line
             case drawio.availableShapes.LINE:
