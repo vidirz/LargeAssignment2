@@ -80,17 +80,21 @@ $(function () {
 
     // Undo 
     $('#undo').on('click', function () {
-        drawio.undo.push(drawio.shapes.pop());
-        drawio.ctx.clearRect(0,0, drawio.canvas.width, drawio.canvas.height);
-        drawCanvas();
-    })
+        if(drawio.shapes.length > 0) {
+            drawio.undo.push(drawio.shapes.pop());
+            drawio.ctx.clearRect(0,0, drawio.canvas.width, drawio.canvas.height);
+            drawCanvas();
+        }
+    });
 
     // Redo
     $('#redo').on('click', function () {
-        drawio.shapes.push(drawio.undo.pop());
-        drawio.ctx.clearRect(0,0, drawio.canvas.width, drawio.canvas.height);
-        drawCanvas();
-    })
+        if(drawio.undo.length > 0) {
+            drawio.shapes.push(drawio.undo.pop());
+            drawio.ctx.clearRect(0,0, drawio.canvas.width, drawio.canvas.height);
+            drawCanvas();
+        }
+    });
 
     // Change brush size
     $('#brushSize').on('input', function (inputEvent) {
