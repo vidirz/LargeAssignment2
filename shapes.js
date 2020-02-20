@@ -1,6 +1,6 @@
 //function a drawing appinu
 
-function Shape(position, strokeSize, color) {
+function Shape(position, color, strokeSize) {
     this.position = position;
     this.strokeSize = strokeSize;
     this.color = color;
@@ -19,42 +19,37 @@ Shape.prototype.hit = function () {};
 Shape.prototype.findPoints = function () {};
 
 function Rectangle(position, width, height, strokeSize, color) {
-    Shape.call(this, position, strokeSize, color);
+    Shape.call(this, position, color, strokeSize);
     this.width = width;
     this.height = height;
 };
+
 // Fyrir circle:
 function Circle(position, width, height, strokeSize, color){
-    Shape.call(this, position, strokeSize, color);
+    Shape.call(this, position, color, strokeSize);
     this.width = width;
     this.height = height;
 };
 
 function Pencil(position, strokeSize, color) {
-    Shape.call(this, position, strokeSize, color);
+    Shape.call(this, position, color, strokeSize);
     this.points = [];
 }
 
-function Text(position, text, width, height){
-    Shape.call(this, position, width, height);
+function Text(position, text, fontSize, font){
+    Shape.call(this, position);
     this.text = text;
-    this.width = width;
-    this.height = height;
+    this.fontSize = fontSize;
+    this.font = fontSize + "px " + font;
+    this.width = null;
 }
 
 // Line
 function Line(position, strokeSize, color){
-    Shape.call(this, position, strokeSize, color);
+    Shape.call(this, position, color, strokeSize);
     this.endpoint = {};
     this.points = [];
 };
-function myInputFunction() {
-    //var person = prompt("Please enter your name", "");
-    var person = $("#textUser").val();
-    
-
-    return (person);
-}
 
 ////////////////Rectangle/////////////////////
 //Assign the prototype
@@ -185,7 +180,7 @@ Pencil.prototype.move = function (position) {
 
     // move every poin that distance
     for(i = 0; i < this.points.length; i++) {
-       this.points[i][0] = this.points[i][0] - disX ;
+       this.points[i][0] = this.points[i][0] - disX;
        this.points[i][1] = this.points[i][1] - disY;
     }
 }
@@ -197,14 +192,29 @@ Text.prototype = Object.create(Shape.prototype);
 Text.prototype.constructor = Text;
 
 Text.prototype.render = function () {
-    drawio.ctx.font = '50px serif';
+    drawio.ctx.font = this.font;
     drawio.ctx.fillText(this.text, this.position.x, this.position.y);
+
+    // save the width of the text for hit detection
+    this.width = drawio.ctx.measureText(this.text).width;
 };
 
-Text.prototype.resize = function (x, y) {
-    this.width = x - this.position.x;
-    this.height = y - this.position.y; 
-    //drawio.ctx.moveTo(x, y);
+Text.prototype.hit = function (x, y) {
+
+    // Find edge values
+    this.left = this.position.x;
+    this.right = this.position.x + this.width;
+    
+    this.bottom = this.position.y;
+    this.top = this.position.y - this.fontSize;
+
+    // check if hit position is within the edges
+    if(x > this.left && x < this.right) {
+        if(y < this.bottom && y > this.top) {
+            return true;
+        }
+    }
+    return false;
 };
 
 /////////////Text END///////////////////////
